@@ -39,8 +39,11 @@ st.header('INPUT (DNA Query)')
 sequence
 
 ## DNA nucleotide count
+## Ways to show the results
 st.header('OUTPUT (Nucleotide Count)')
 
+# 1. Print dictionary
+st.subheader('1. Print dictionary')
 def DNA_nucleotide_count(seq):
     d = dict([
         ('A', seq.count('A')),
@@ -51,12 +54,7 @@ def DNA_nucleotide_count(seq):
     
     return d
 
-### Ways to show the results
-
-# 1. Print dictionary
 X = DNA_nucleotide_count(sequence)
-X_label, X_values = list(X), list(X.values())
-
 X
 
 # 2. Print text
@@ -75,5 +73,15 @@ df = df.rename(columns = {'index': 'nucleotide'})
 
 st.write(df)
 
-# 4. Display Bar Chart using Altair
+# 4. Display Bar Chart using Altair library
+st.subheader('4. Display Bar Chart')
+# st.bar_chart(data=df, x='nucleotide', y='count')
+p = alt.Chart(df).mark_bar().encode(
+    x='nucleotide',
+    y='count'
+)
+p = p.properties(
+    width=alt.Step(160)  # controls width of bar.
+)
+st.write(p)
 
